@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Анализатор текста";
+}
+<a asp-page="/AddProduct" class="btn btn-success mb-3">Добавить новый товар</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .text-input {
+            width: 80%;
+            height: 150px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Анализатор текста</h1>
+
+    <form method="post" enctype="application/x-www-form-urlencoded">
+        @Html.AntiForgeryToken()
+
+        <div>
+            <textarea class="text-input"
+                      name="userText"
+                      placeholder="Вставьте ваш текст здесь...">@Model.UserText</textarea>
+        </div>
+
+        <div>
+            <input type="text"
+                   name="letter"
+                   value="@Model.Letter"
+                   placeholder="Введите одну букву"
+                   maxlength="1"
+                   pattern="[А-Яа-яA-Za-z]"
+                   required>
+            <button type="submit">Анализировать</button>
+        </div>
+    </form>
+
+    @if (Model.ShowResults)
+    {
+        <div>
+            <h3>Результаты:</h3>
+            <p>Буква '@Model.TargetChar' найдена @Model.Count раз</p>
+        </div>
+    }
+</body>
+</html>
