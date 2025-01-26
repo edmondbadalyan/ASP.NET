@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Текущий день года";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать</h1>
+
+    <div class="alert alert-info mt-5" style="font-size: 2em;">
+        Сегодня
+        <span class="badge bg-primary">@Model.CurrentDayOfYear</span>
+        день года
+    </div>
+
+    <p class="mt-3 text-muted">
+        @DateTime.Now.ToString("D", new System.Globalization.CultureInfo("ru-RU"))
+    </p>
+</div>
+
+<div class="text-center">
+    <h1 class="display-4 mb-5">Случайная буква</h1>
+
+    <div class="letter-container">
+        <div class="random-letter">
+            @Model.RandomLetter
+        </div>
+    </div>
+
+    <p class="mt-5">
+        <a href="/" class="btn btn-primary btn-lg">Новая буква</a>
+    </p>
+</div>
+
+<style>
+    .letter-container {
+        margin: 2rem auto;
+        padding: 3rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        display: inline-block;
+    }
+
+    .random-letter {
+        font-size: 10rem;
+        font-weight: bold;
+        color: #0d6efd;
+        line-height: 1;
+        font-family: 'Courier New', monospace;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+</style>

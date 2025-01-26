@@ -1,0 +1,93 @@
+﻿@page
+@model WebApplication3.Pages.RestaurantModel
+@{
+    ViewData["Title"] = "Наш ресторан";
+}
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Список ресторанов</h1>
+
+    <div class="restaurant-list">
+        @foreach (var restaurant in Model.Restaurants)
+        {
+            <div class="restaurant-card">
+                <div class="emoji">@restaurant.Emoji</div>
+                <div class="details">
+                    <h3>@restaurant.Name</h3>
+                    <p class="specialization">@restaurant.Specialization</p>
+                    <div class="rating">
+                        @for (int i = 0; i < 5; i++)
+                        {
+                            <span class="star @(i < restaurant.Rating ? "filled" : "")">★</span>
+                        }
+                        <span class="rating-value">@restaurant.Rating.ToString("0.0")</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .restaurant-list {
+        display: grid;
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .restaurant-card {
+        display: flex;
+        align-items: center;
+        padding: 1.5rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+
+        .restaurant-card:hover {
+            transform: translateY(-2px);
+        }
+
+    .emoji {
+        font-size: 3rem;
+        margin-right: 1.5rem;
+        min-width: 60px;
+        text-align: center;
+    }
+
+    .details {
+        flex-grow: 1;
+    }
+
+    .specialization {
+        color: #666;
+        margin: 0.5rem 0;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .star {
+        color: #ddd;
+        font-size: 1.2rem;
+    }
+
+        .star.filled {
+            color: #ffc107;
+        }
+
+    .rating-value {
+        margin-left: 0.5rem;
+        font-weight: 500;
+        color: #666;
+    }
+
+    h3 {
+        color: #2c3e50;
+        margin: 0;
+    }
+</style>

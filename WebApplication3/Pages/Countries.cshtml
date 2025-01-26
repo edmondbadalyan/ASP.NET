@@ -1,0 +1,67 @@
+﻿@page
+@model WebApplication3.Pages.CountriesModel
+@{
+    ViewData["Title"] = "Страны мира";
+}
+<div class="container mt-5">
+    <h1 class="display-4 mb-4">Список стран</h1>
+
+    <div class="country-grid">
+        @foreach (var country in Model.Countries)
+        {
+            <div class="country-card">
+                <img src="@country.Flag"
+                     alt="Флаг @country.Name"
+                     class="country-flag">
+                <div class="country-info">
+                    <h3>@country.Name</h3>
+                    <p>Столица: @country.Capital</p>
+                    <p>Население: @country.Population.ToString("N0")</p>
+                    <p>Площадь: @country.Area км²</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .country-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .country-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .country-flag {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-bottom: 2px solid #eee;
+    }
+
+    .country-info {
+        padding: 1.5rem;
+    }
+
+        .country-info h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .country-info p {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+</style>
