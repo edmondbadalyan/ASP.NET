@@ -1,0 +1,52 @@
+﻿@page
+@model WebApplication_Layout.Pages.AddContactModel
+@{
+    Layout = "/Pages/Shared/LayoutTwoColumns.cshtml";
+    ViewData["Title"] = "Добавить контакт";
+}
+@section LeftColumn {
+    <div class="form-container">
+        <h3>Новый контакт</h3>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Contact.Name"></label>
+                <input asp-for="Contact.Name" class="form-control" />
+                <span asp-validation-for="Contact.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Contact.MobilePhone"></label>
+                <input asp-for="Contact.MobilePhone" class="form-control" />
+                <span asp-validation-for="Contact.MobilePhone" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </form>
+    </div>
+}
+
+@section RightColumn {
+    <div class="info-box">
+        <h4>Инструкция</h4>
+        <p>Заполните все обязательные поля (*)</p>
+        <p>Телефон в формате: +7 XXX XXX-XX-XX</p>
+    </div>
+}
+
+<style>
+    .form-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .info-box {
+        background: #e9f5ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-left: 30px;
+    }
+</style>

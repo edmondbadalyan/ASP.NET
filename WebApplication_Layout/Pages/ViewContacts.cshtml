@@ -1,0 +1,56 @@
+﻿@page
+@model WebApplication_Layout.Pages.ViewContactsModel
+@{
+    Layout = "/Pages/Shared/LayoutThreeColumns.cshtml";
+    ViewData["Title"] = "Все контакты";
+}
+@section LeftColumn {
+    <div class="contacts-list">
+        <h4>Список контактов</h4>
+        @foreach (var contact in Model.Contacts)
+        {
+            <div class="contact-item">
+                <h5>@contact.Name</h5>
+                <p>@contact.MobilePhone</p>
+            </div>
+        }
+    </div>
+}
+
+@section CenterColumn {
+    <div class="contact-details">
+        <h4>Детали контакта</h4>
+        
+    </div>
+}
+
+@section RightColumn {
+    <div class="quick-actions">
+        <h4>Действия</h4>
+        <a asp-page="/AddContact" class="btn btn-success">Добавить новый</a>
+    </div>
+}
+
+<style>
+    .contacts-list {
+        padding-right: 20px;
+        border-right: 1px solid #dee2e6;
+    }
+
+    .contact-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .contact-details {
+        padding: 0 20px;
+    }
+
+    .quick-actions {
+        padding-left: 20px;
+        border-left: 1px solid #dee2e6;
+    }
+</style>

@@ -1,0 +1,54 @@
+﻿@page
+@model WebApplication_Layout.Pages.SumCalculatorModel
+@{
+    Layout = "/Pages/Shared/LayoutTwoColumns.cshtml";
+    ViewData["Title"] = "Калькулятор суммы ряда";
+}
+@section LeftColumn {
+    <div class="calculator-form">
+        <h3>Введите параметры</h3>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="N">Число n:</label>
+                <input asp-for="N" class="form-control" type="number" min="1" />
+                <span asp-validation-for="N" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Рассчитать</button>
+        </form>
+    </div>
+}
+
+@section RightColumn {
+    @if (Model.HasResult)
+    {
+        <div class="calculation-result">
+            <h3>Результат вычислений</h3>
+            <div class="alert alert-success">
+                Сумма ряда для n = @Model.N:
+                <strong>@Model.Result.ToString("F6")</strong>
+            </div>
+        </div>
+    }
+    else if (!ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <h4>Ошибки ввода:</h4>
+            <div asp-validation-summary="All"></div>
+        </div>
+    }
+}
+
+<style>
+    .calculator-form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .calculation-result {
+        max-width: 500px;
+        margin: 20px auto;
+    }
+</style>
