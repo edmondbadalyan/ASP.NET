@@ -1,0 +1,43 @@
+﻿@page
+@model WebApplication1.Pages.AnglePageModel
+@{
+    ViewData["Title"] = "Расчет угла броска";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="V">Начальная скорость (V, м/с):</label>
+        <input asp-for="V" class="form-control" type="number" step="0.1" />
+        <span asp-validation-for="V" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="T">Время полета (T, с):</label>
+        <input asp-for="T" class="form-control" type="number" step="0.1" />
+        <span asp-validation-for="T" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Рассчитать угол</button>
+</form>
+
+@if (Model.AngleDegrees.HasValue)
+{
+    <div class="alert alert-success mt-3">
+        <h4>Результат:</h4>
+        <p>Угол броска: @Model.AngleDegrees.Value.ToString("0.00")°</p>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mt-3">
+        @Model.ErrorMessage
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
