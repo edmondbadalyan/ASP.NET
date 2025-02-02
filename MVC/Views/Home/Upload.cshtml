@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Загрузка файла с дробью";
+}
+<h2>Загрузка файла с дробью</h2>
+
+<form asp-action="Upload" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="file">Выберите файл:</label>
+        <input type="file" name="file" id="file" />
+    </div>
+    <br />
+    <button type="submit">Загрузить</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div>
+        <h3>Результат:</h3>
+        <p>@ViewBag.Message</p>
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+        <p style="color:red">@error.ErrorMessage</p>
+    }
+}

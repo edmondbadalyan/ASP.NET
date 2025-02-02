@@ -1,0 +1,64 @@
+﻿@model MVC.Models.FractionOperationViewModel
+@{
+    ViewBag.Title = "Работа с дробями";
+}
+
+<h2>Работа с дробями</h2>
+
+@using (Html.BeginForm("Calculate", "Home", FormMethod.Post))
+{
+    <div>
+        <h3>Первая дробь</h3>
+        <div>
+            @Html.LabelFor(m => m.Numerator1)
+            @Html.TextBoxFor(m => m.Numerator1)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Denominator1)
+            @Html.TextBoxFor(m => m.Denominator1)
+        </div>
+    </div>
+    <br />
+    <div>
+        <h3>Вторая дробь (требуется для операций, использующих две дроби)</h3>
+        <div>
+            @Html.LabelFor(m => m.Numerator2)
+            @Html.TextBoxFor(m => m.Numerator2)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Denominator2)
+            @Html.TextBoxFor(m => m.Denominator2)
+        </div>
+    </div>
+    <br />
+    <div>
+        <h3>Выберите операцию</h3>
+        <div>
+            @Html.RadioButtonFor(m => m.Operation, "add") Сложение<br />
+            @Html.RadioButtonFor(m => m.Operation, "subtract") Вычитание<br />
+            @Html.RadioButtonFor(m => m.Operation, "multiply") Умножение<br />
+            @Html.RadioButtonFor(m => m.Operation, "divide") Деление<br />
+            @Html.RadioButtonFor(m => m.Operation, "reduce") Сокращение (первая дробь)<br />
+        </div>
+    </div>
+    <br />
+    <div>
+        <input type="submit" value="Выполнить операцию" />
+    </div>
+}
+
+@* Отображение результатов вне формы *@
+@if (!string.IsNullOrEmpty(Model.ResultFraction))
+{
+    <h3>Результат:</h3>
+    <p>Дробь: @Model.ResultFraction</p>
+    <p>Десятичное значение: @Model.ResultDecimal</p>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+        <p style="color:red">@error.ErrorMessage</p>
+    }
+}
