@@ -38,7 +38,6 @@ namespace MVC.Controllers
                 // Разбираем данные файла и получаем объект Fraction
                 Fraction fraction = parser.Parse(content);
 
-                // Передаём результат во ViewBag для отображения на странице
                 ViewBag.Message = $"Загружена дробь: {fraction}  (Десятичное значение: {fraction.ToDecimal()})";
             }
             catch (Exception ex)

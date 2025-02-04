@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Расписание сеансов</title>
+    <style>
+        .movie-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        .session-time {
+            color: #2c3e50;
+            margin: 5px;
+            padding: 5px;
+            background: #ecf0f1;
+            display: inline-block;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Расписание сеансов</h1>
+    <div id="schedule-container"></div>
+
+    <script>
+        async function loadSchedule() {
+            try {
+                const response = await fetch('/api/movieschedule');
+                if (!response.ok) throw new Error('Ошибка загрузки данных');
+
+                const data = await response.json();
+                const container = document.getElementById('schedule-container');
+
+                data.forEach(movie => {
+                    const movieElement = document.createElement('div');
+                    movieElement.className = 'movie-card';
+
+                    movieElement.innerHTML = `
+                        <h2>${movie.name}</h2>
+                        <div class="sessions">
+                            ${movie.sessions.map(s => `
+                                <div class="session-time">
+                                    ${new Date(s).toLocaleString('ru-RU', {
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        day: 'numeric',
+                                        month: 'long'
+                                    })}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+
+                    container.appendChild(movieElement);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Произошла ошибка при загрузке расписания');
+            }
+        }
+
+        loadSchedule();
+    </script>
+</body>
+</html>
