@@ -1,0 +1,64 @@
+﻿@page
+@model WebApplication6.Pages.CalculateModel
+@{
+    ViewData["Title"] = "Расчёт Y";
+}
+
+<h2>Расчёт Y</h2>
+
+@if (Model.Step == 1)
+{
+    <!-- Шаг 1: ввод количества вычислений -->
+    <form method="post" asp-page-handler="SetCount">
+        <div>
+            <label>Введите количество X:</label>
+            <input type="number" name="Count" min="1" value="@Model.Count" required />
+        </div>
+        <button type="submit">Далее</button>
+    </form>
+}
+else if (Model.Step == 2)
+{
+    <!-- Шаг 2: ввод параметров для каждого X -->
+    <form method="post" asp-page-handler="Calculate">
+        <input type="hidden" name="Count" value="@Model.Count" />
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>Z</th>
+                    <th>Угол (°)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Terms.Count; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>
+                            <input type="number" step="any" name="Terms[@i].A" value="@Model.Terms[i].A" required />
+                        </td>
+                        <td>
+                            <input type="number" step="any" name="Terms[@i].B" value="@Model.Terms[i].B" required />
+                        </td>
+                        <td>
+                            <input type="number" step="any" name="Terms[@i].Z" value="@Model.Terms[i].Z" required />
+                        </td>
+                        <td>
+                            <input type="number" step="any" name="Terms[@i].Theta" value="@Model.Terms[i].Theta" required />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit">Вычислить Y</button>
+    </form>
+}
+
+@if (Model.IsCalculated)
+{
+    <h3>Результат: Y = @Model.Result</h3>
+}
+
