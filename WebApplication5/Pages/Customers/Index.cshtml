@@ -1,0 +1,27 @@
+﻿@page
+@model WebApplication5.Pages.Customers.IndexModel
+<h1>Customers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Categories</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.Country</td>
+                <td>
+                    @string.Join(", ", item.CustomerCategories.Select(cc => cc.Category.Name))
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
